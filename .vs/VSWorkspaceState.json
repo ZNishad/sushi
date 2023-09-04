@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Sushi House",
+    "\\Sushi House\\Services"
   ],
+  "SelectedNode": "\\Sushi House\\Services\\AuthenticationManager.cs",
   "PreviewInSolutionExplorer": false
 }

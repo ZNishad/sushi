@@ -73,7 +73,19 @@ namespace Sushi_House.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] User model)
         {
+            try
+            {
             return Ok(_authenticationService.Login(model));
+                
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
 
         }
 
