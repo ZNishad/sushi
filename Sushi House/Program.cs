@@ -8,6 +8,7 @@ using Sushi_House.Models;
 using System.Security.Claims;
 using System.Text;
 using AutoMapper;
+using Sushi_House.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<SushiContext>();
+builder.Services.AddScoped<IAuthService, AuthenticationManager>();
 builder.Services.AddSwaggerGen(c =>
 {
     var securityScheme = new OpenApiSecurityScheme

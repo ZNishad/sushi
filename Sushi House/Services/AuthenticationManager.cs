@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Sushi_House.Extensions;
@@ -13,10 +14,12 @@ namespace Sushi_House.Services
     {
 
         private readonly JwtSettings _jwtSettings;
+        private readonly IMapper _mapper;
         private readonly SushiContext _login;
-        public AuthenticationManager(IOptions<JwtSettings> jwtSettings, SushiContext login)
+        public AuthenticationManager(IOptions<JwtSettings> jwtSettings, SushiContext login, IMapper mapper)
         {
             _jwtSettings = jwtSettings.Value;
+            _mapper = mapper;
             _login = login;
         }
         private User AuthenticateUser(string email, string password)
@@ -29,18 +32,20 @@ namespace Sushi_House.Services
             }
             return null;
         }
+
         public string Login(User model)
         {
             var user = AuthenticateUser(model.UserMail, model.UserPassword);
 
             //if (user == null)
             //{
-            //    return UnauthorizedAccessException("Invalid email or password.");
+            //    return BadRequest("Invalid email or password.");
             //}
 
             var token = GenerateJwtToken(user.UserId, user.UserName, (int)user.UserStatId);
             return token;
         }
+
         private string GenerateJwtToken(int UserId, string UserName, int UserStatId)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -57,6 +62,56 @@ namespace Sushi_House.Services
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        public List<User> Get()
+        {
+            return _login.Users.ToList();
+        }
+
+        public void Post(User u)
+        {
+            if (u == null || string.IsNullOrWhiteSpace(u.UserPassword))
+            {
+                throw new ArgumentException("Invalid user data");
+            }
+
+            // Хеширование пароля перед сохранением в базе данных
+            string hashed = u.UserPassword.HashPassword();
+            u.UserStatId = 3;
+            u.UserPassword = hashed;
+            _login.Users.Add(u);
+            _login.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            if (id <= 0 || _login.Users.FirstOrDefault(x => x.UserId == id) == null)
+            {
+                throw new ArgumentException("Invalid User ID");
+            }
+            _login.Users.Remove(_login.Users.SingleOrDefault(x => x.UserId == id));
+            _login.SaveChanges();
+        }
+
+        public void Put(int userId, UserDTO dto)
+        {
+            var oldUser = _login.Users.SingleOrDefault(x => x.UserId == userId);
+            if (oldUser == null)
+            {
+                throw new ArgumentException("User not found");
+            }
+
+            _mapper.Map(dto, oldUser);
+
+            try
+            {
+                _login.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while saving data: {ex.Message}");
+            }
         }
     }
 }
