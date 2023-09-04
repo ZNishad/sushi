@@ -2887,19 +2887,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\zulfu\\.nuget\\packages\\": {}
+    "C:\\Users\\Nishad\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\zulfu\\Source\\Repos\\ZNishad\\sushi\\Sushi House\\Sushi House.csproj",
+      "projectUniqueName": "C:\\Users\\Nishad\\Source\\Repos\\ZNishad\\sushi\\Sushi House\\Sushi House.csproj",
       "projectName": "Sushi House",
-      "projectPath": "C:\\Users\\zulfu\\Source\\Repos\\ZNishad\\sushi\\Sushi House\\Sushi House.csproj",
-      "packagesPath": "C:\\Users\\zulfu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\zulfu\\Source\\Repos\\ZNishad\\sushi\\Sushi House\\obj\\",
+      "projectPath": "C:\\Users\\Nishad\\Source\\Repos\\ZNishad\\sushi\\Sushi House\\Sushi House.csproj",
+      "packagesPath": "C:\\Users\\Nishad\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Nishad\\Source\\Repos\\ZNishad\\sushi\\Sushi House\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\zulfu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Nishad\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

@@ -37,10 +37,10 @@ namespace Sushi_House.Services
         {
             var user = AuthenticateUser(model.UserMail, model.UserPassword);
 
-            //if (user == null)
-            //{
-            //    return BadRequest("Invalid email or password.");
-            //}
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid email or password.");
+            }
 
             var token = GenerateJwtToken(user.UserId, user.UserName, (int)user.UserStatId);
             return token;

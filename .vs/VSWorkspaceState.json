@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Sushi House",
+    "\\Sushi House\\Controllers"
   ],
+  "SelectedNode": "\\Sushi House\\Controllers\\UserController.cs",
   "PreviewInSolutionExplorer": false
 }
